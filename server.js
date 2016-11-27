@@ -3,6 +3,8 @@
 const express = require('express');
 const app = express();
 const rageface = require('./app');
+const passport = require('./app/auth');
+const bodyParser = require('body-parser');
 
 //set the port
 app.set('port', process.env.PORT || 3000);
@@ -11,6 +13,14 @@ app.set('port', process.env.PORT || 3000);
 //argument is the directory where it can find the assets
 //in our case, we can store the rageface logo and whatever other visual assets will remain constant throughout the app
 app.use(express.static('public'));
+app.use(passport.initialize());
+
+//request body parsers
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  //allows for the decoding of url encoded bodies
+  extended: true
+}));
 
 //the templating engine
 app.set('view engine', 'ejs');
@@ -18,6 +28,7 @@ app.set('view engine', 'ejs');
 //maybe use sessions...
 
 app.use('/', rageface.router);
-app.listen(app.get('port'), () => {
+
+rageface.ioServer(app).listen(app.get('port'), () => {
   console.log("Rageface running on port: " + app.get('port'));
 });
