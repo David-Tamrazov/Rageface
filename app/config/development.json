@@ -1,3 +1,4 @@
 {
-  "host": "http://localhost:3000"
+  "host": "http://localhost:3000",
+  "dbURI": "mongodb://rageface_user:rageface514@ds163377.mlab.com:63377/rageface"
 }
