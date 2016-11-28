@@ -3,7 +3,7 @@
 const express = require('express');
 const app = express();
 const rageface = require('./app');
-const passport = require('./app/auth');
+const passport = require('./app/auth').passport;
 const bodyParser = require('body-parser');
 
 //set the port

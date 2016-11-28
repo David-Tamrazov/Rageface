@@ -5,13 +5,9 @@ var Mongoose = db.mong;
 const rageface_user = Mongoose.Schema({
   username: {
     type: String,
-    required: 'Username is required to create an account.',
     unique: true
   },
-  password: {
-    type: String,
-    required: 'Password required to create an account'
-  },
+  password: String,
   flows: Array,
   dateJoined: Date
 });
@@ -19,7 +15,7 @@ const rageface_user = Mongoose.Schema({
 let User = Mongoose.model('rageface_user', rageface_user);
 
 let findByUsername = (username, cb) => {
-  User.findOne({"username": username}, (err, result) => {
+  User.findOne({"username": username}, (err, user) => {
     if (err) {
       return cb(err, null);
     }
@@ -32,19 +28,26 @@ let findByUsername = (username, cb) => {
   });
 }
 
+function serializeUser(cb) {
+  return createUser(username, pw, cb);
+}
+
 let createUser = (username, pw, cb) => {
-  let newUser = new User({
+
+  let user = new User({
     username: username,
     password: pw,
+    flows: [],
     dateJoined: new Date()
   });
 
-  newUser.save(error => {
+  user.save(error => {
     if (error) {
+      throw error;
       return cb(error, null);
     }
     else {
-      return cb(null, newUser);
+      return cb(null, user);
     }
   });
 }

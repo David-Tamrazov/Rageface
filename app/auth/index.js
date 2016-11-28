@@ -1,6 +1,7 @@
 'use strict';
 
 const passport = require('passport');
+const jwt = require('jsonwebtoken');
 const Strategy = require('passport-local');
 const config = require('../config');
 const User = require('../models/user.js');
@@ -15,7 +16,15 @@ passport.use(new Strategy((username, password, done) => {
       else if (user) {
 
         if (user.username === username && user.password === password) {
-          done(null, user);
+
+          //send back a user object without the password for security's sake
+          var userObject = {
+            _id: user._id,
+            flows: user.flows,
+            username: user.username,
+            dateJoined: user.dateJoined
+          }
+          done(null, userObject);
         }
         else {
           done(null, false);
@@ -27,4 +36,25 @@ passport.use(new Strategy((username, password, done) => {
     })
 }));
 
-module.exports = passport;
+let generateToken = (user, cb) => {
+
+  let token = jwt.sign({
+    id: user._id,
+  }, config.secret, {
+    //seconds * minutes
+    expiresIn: 60 * 30
+  });
+  return cb(null, token);
+}
+
+let generateAccessToken = (user, cb) => {
+  return generateToken(user._id, (error, token) => {
+    return cb(null, { user: user, token: token });
+  });
+}
+
+module.exports = {
+  passport,
+  generateAccessToken,
+  generateToken
+}
