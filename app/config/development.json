@@ -1,4 +1,5 @@
 {
   "host": "http://localhost:3000",
+  "secret": "simonbenjidave",
   "dbURI": "mongodb://rageface_user:rageface514@ds163377.mlab.com:63377/rageface"
 }

@@ -18,9 +18,11 @@
   },
   "homepage": "https://github.com/David-Tamrazov/Rageface#readme",
   "dependencies": {
+    "async": "^2.1.4",
     "body-parser": "^1.15.2",
     "child_process": "^1.0.2",
     "express": "^4.14.0",
+    "jsonwebtoken": "^7.1.9",
     "mongoose": "^4.7.0",
     "nodemon": "^1.11.0",
     "passport": "^0.3.2",
