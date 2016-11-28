@@ -8,13 +8,23 @@ const User = require('../models/user.js');
 const Auth = require('../auth');
 const passport = Auth.passport;
 
+const React = require('react');
+const ReactDOM = require ('react-dom');
+//const App = require('/Users/benjamintaubenblatt/RageFace/Rageface/src/App.js');
+//const indexCSS = require ('/Users/benjamintaubenblatt/RageFace/Rageface/src/index.css');
+//const indexhtml = require('/Users/benjamintaubenblatt/RageFace/Rageface/views/index.html');
+
 
 module.exports = () => {
   let routes = {
     'get': {
       '/': (req, res, next) => {
+<<<<<<< HEAD
 
         res.render('index.html', { div: react_stuff})''
+=======
+        res.render('/Users/benjamintaubenblatt/RageFace/Rageface/views/index.html');
+>>>>>>> 63df4eb6f251bea9b97362180aa581b040553202
       },
       '/dashboard': (req,res,next)=> {
         res.send('<h1> This is the dashboard!</h1>');
