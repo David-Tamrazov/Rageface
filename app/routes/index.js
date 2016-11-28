@@ -14,7 +14,7 @@ module.exports = () => {
     'get': {
       '/': (req, res, next) => {
 
-        res.send('<h1> Hello, world!</h1>');
+        res.render('index.html', { div: react_stuff})''
       },
       '/dashboard': (req,res,next)=> {
         res.send('<h1> This is the dashboard!</h1>');
@@ -81,19 +81,6 @@ module.exports = () => {
           }
         });
       }
-
-      // User.createUser(username, pw, (error, user) => {
-      //   if (error) {
-      //     res.status(500).send(error);
-      //   }
-      //   else if (user) {
-      //     res.status(200).send(user);
-      //   }
-      //   else {
-      //     res.status(500).send("An unknown error has occured.");
-      //   }
-      // });
-
     },
     'update': {
 
