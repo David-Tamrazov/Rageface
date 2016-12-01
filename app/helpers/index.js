@@ -11,7 +11,6 @@ let _registerRoutes = (routes, method) => {
       _registerRoutes(routes[key], key);
     }
 
-
     else {
       if (method === 'get') {
         router.get(key, routes[key]);
@@ -23,7 +22,6 @@ let _registerRoutes = (routes, method) => {
         router.use(routes[key]);
       }
     }
-
   }
 }
 

@@ -41,9 +41,9 @@ let createUser = (username, pw, cb) => {
     dateJoined: new Date()
   });
 
+  console.log(user);
   user.save(error => {
     if (error) {
-      throw error;
       return cb(error, null);
     }
     else {

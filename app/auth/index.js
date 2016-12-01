@@ -48,7 +48,7 @@ let generateToken = (user, cb) => {
 }
 
 let generateAccessToken = (user, cb) => {
-  return generateToken(user._id, (error, token) => {
+  return generateToken(user, (error, token) => {
     return cb(null, { user: user, token: token });
   });
 }

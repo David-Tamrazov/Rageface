@@ -6,6 +6,8 @@ const config = require('../config');
 const helpers = require('../helpers');
 const User = require('../models/user.js');
 const Auth = require('../auth');
+const expressJwt = require('express-jwt');
+const Authenticate = expressJwt({secret: config.secret});
 const passport = Auth.passport;
 
 
@@ -14,29 +16,23 @@ module.exports = () => {
     'get': {
       '/': (req, res, next) => {
 
-        res.send('<h1> Hello, world!</h1>');
-      },
-      '/dashboard': (req,res,next)=> {
-        res.send('<h1> This is the dashboard!</h1>');
+        res.send("Hooray!");
       },
 
-      //[validateSender,(req, res, next) => {...}]
-      '/getgifs': (req, res, next) => {
+      '/getgifs': [Authenticate, (req, res, next) => {
         let pyScriptPath = "/Users/Dave/Documents/Uni Work/COMP 307/Rageface/app/scripts/test.py";
-
+        console.log(req.user);
         var process = spawn('python', [pyScriptPath]);
 
         process.stdout.on('data', function(data){
           res.send(JSON.parse(data));
         });
-
-        //res.send(__dirname +"/test.py");
-
-      }
+      }]
     },
     'post': {
-      //[validateSender, pass.authenticate(...), ...]
+
       '/signin': [passport.authenticate('local', {session: false}), (req, res, next)  => {
+
           //serialize
           var user = req.user;
           Auth.generateAccessToken(user, (error, result) => {
@@ -50,8 +46,7 @@ module.exports = () => {
               res.status(500).send("An unknown error has occured.");
             }
           });
-          //generate token
-          //respond
+
       }],
 
       //[validateSender, (req, res, next) => {... more stuff here ...}]
@@ -81,19 +76,6 @@ module.exports = () => {
           }
         });
       }
-
-      // User.createUser(username, pw, (error, user) => {
-      //   if (error) {
-      //     res.status(500).send(error);
-      //   }
-      //   else if (user) {
-      //     res.status(200).send(user);
-      //   }
-      //   else {
-      //     res.status(500).send("An unknown error has occured.");
-      //   }
-      // });
-
     },
     'update': {
 
