@@ -21,10 +21,8 @@ module.exports = () => {
   let routes = {
     'get': {
       '/': (req, res, next) => {
-
-        res.send("Hooray!");
-
-      }
+        res.send("Success!");
+      },
 
       '/getgifs': [Authenticate, (req, res, next) => {
         let pyScriptPath = "/Users/Dave/Documents/Uni Work/COMP 307/Rageface/app/scripts/test.py";
