@@ -10,6 +10,12 @@ const expressJwt = require('express-jwt');
 const Authenticate = expressJwt({secret: config.secret});
 const passport = Auth.passport;
 
+const React = require('react');
+const ReactDOM = require ('react-dom');
+//const App = require('/Users/benjamintaubenblatt/RageFace/Rageface/src/App.js');
+//const indexCSS = require ('/Users/benjamintaubenblatt/RageFace/Rageface/src/index.css');
+//const indexhtml = require('/Users/benjamintaubenblatt/RageFace/Rageface/views/index.html');
+
 
 module.exports = () => {
   let routes = {
@@ -17,7 +23,8 @@ module.exports = () => {
       '/': (req, res, next) => {
 
         res.send("Hooray!");
-      },
+
+      }
 
       '/getgifs': [Authenticate, (req, res, next) => {
         let pyScriptPath = "/Users/Dave/Documents/Uni Work/COMP 307/Rageface/app/scripts/test.py";

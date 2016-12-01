@@ -12,7 +12,9 @@ app.set('port', process.env.PORT || 3001);
 //express middleware used for serving up static assets (unchanging)
 //argument is the directory where it can find the assets
 //in our case, we can store the rageface logo and whatever other visual assets will remain constant throughout the app
+
 app.use(express.static(__dirname + '/public'));
+
 app.use(passport.initialize());
 
 //request body parsers
