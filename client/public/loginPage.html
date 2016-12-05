@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<style>
+  body{
+    background-color: rgb(230,230,230);
+  }
+  .gif{
+    width:100px;
+    height:100px;
+  }
+
+</style>
+<body>
+  <div class="container">
+    <br/>
+    <a style="display:block; text-decoration:none;" href="index.html">
+    <div>
+        <img id='rock' src="rock.png" value="r" style="width:50px; height:50px" alt="Your browser doesn't support images"/>
+        <img id='surf' src="surfer.png" value="s" style="width:50px; height:50px" alt="Your browser doesn't support images"/>
+        <img id='rck' src="rock.png" value="r" style="width:50px; height:50px" alt="Your browser doesn't support images"/>
+    </div>
+    </a>
+    <h2>Welcome to RageFace! Please Login!</h2>
+    <br/>
+    <form>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" class="form-control" id="email" placeholder="Enter email">
+      </div>
+      <div class="form-group">
+        <label for="pwd">Password:</label>
+        <input type="password" class="form-control" id="pwd" placeholder="Enter password">
+      </div>
+      <div class="checkbox">
+        <label><input type="checkbox"> Remember me</label>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+
+
+</body>
+<script>
+
+  setInterval(frame, 750);
+  setInterval(rFrame, 750);
+  setInterval(nFrame, 750);
+
+
+  function frame() {
+    if(document.getElementById("rock").value == "r"){
+      document.getElementById("rock").src = "surfer.png";
+      document.getElementById("rock").value = "s"
+    }else{
+      document.getElementById("rock").src = "rock.png";
+      document.getElementById("rock").value = "r"
+    }
+
+  }
+
+  function rFrame() {
+    if(document.getElementById("rck").value == "r"){
+      document.getElementById("rck").src = "surfer.png";
+      document.getElementById("rck").value = "s"
+    }else{
+      document.getElementById("rck").src = "rock.png";
+      document.getElementById("rck").value = "r"
+    }
+
+  }
+
+  function nFrame() {
+    if(document.getElementById("surf").value == "s"){
+      document.getElementById("surf").src = "rock.png";
+      document.getElementById("surf").value = "r"
+    }else{
+      document.getElementById("surf").src = "surfer.png";
+      document.getElementById("surf").value = "s"
+    }
+
+  }
+
+
+</script>
+</html>
