@@ -5,34 +5,39 @@ import SortableComponent from './SortableComponent';
 import ReactAudioPlayer from 'react-audio-player';
 import './App.css';
 
-var colors={
-  bg:{
-    backgroundColor: "#E0E0E0",
-  }
-}
+
 class App extends Component {
   constructor(){
     super()
     this.state = {
       value:false,
       noobs:[],
+      myURL:'',
     }
   }
 
-  handleUpdate(vl,items){
+  onQueue(aURL){
+    this.setState({myURL:aURL});
+  }
+
+  onUpdate(bool,valItems){
     this.setState({
-      value:!vl,
-      noobs:items,
-    });
+      value: !bool,
+      noobs: valItems,
+    })
+  }
+
+  handleBack(aBool){
+    this.setState({value: !this.state.value});
   }
 
   render() {
     const bootstrapUrl = "https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css"
-
-    document.body.style.backgroundColor = "#aababf";
+//rgb(190,0,59) rgb(185,0,0)
+    document.body.style.backgroundColor = "rgb(230,230,230)";
     //#cec5a7 ba
     //#6199ce blue
-    //#aababf
+    //#aababf grey
 
     var st = {
       head: {
@@ -45,18 +50,28 @@ class App extends Component {
 
       h: {
         color: 'black',
-        fontSize: '90px',
+        fontSize: '45px',
         float:'center',
-        marginTop:0,
+        marginTop:'5%',
+      },
+
+      im:{
+        width:'50px',
+        height:'50px',
       },
     }
     return (
     <div>
       <link rel="stylesheet" href={bootstrapUrl}/>
       <div className="App">
-        <h1 style={st.h}>RageFace</h1>,
-        {this.state.value ? <RageFlow flow={this.state.noobs} handleUpdate={this.handleUpdate.bind(this)}/>
-        : <GifSearch handleUpdate={this.handleUpdate.bind(this)}/>},
+
+        <h3 style={st.h}><img src="rock.png" style={st.im}/>  <strong>RageFace</strong>  <img src="rock.png" style={st.im}/></h3>
+
+        {this.state.value ? <RageFlow flow={this.state.noobs} handleBack={this.handleBack.bind(this)} />
+        : <GifSearch onQueue={this.onQueue.bind(this)}/>}
+
+        <SortableComponent url={this.state.myURL} onUpdate={this.onUpdate.bind(this)} />
+
 
 
       </div>
