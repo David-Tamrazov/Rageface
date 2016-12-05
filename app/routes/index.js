@@ -24,15 +24,15 @@ module.exports = () => {
         res.send("Success!");
       },
 
-      '/getgifs': [Authenticate, (req, res, next) => {
+      '/getgifs': (req, res, next) => {
         let pyScriptPath = "/Users/Dave/Documents/Uni Work/COMP 307/Rageface/app/scripts/test.py";
-        console.log(req.user);
+
         var process = spawn('python', [pyScriptPath]);
 
         process.stdout.on('data', function(data){
           res.send(JSON.parse(data));
         });
-      }]
+      }
     },
     'post': {
 
@@ -80,7 +80,11 @@ module.exports = () => {
             res.status(500).send("An unknown error has occured.");
           }
         });
-      }
+      },
+
+      '/saveflow': [Authenticate, (req, res, next) => {
+
+      }]
     },
     'update': {
 
