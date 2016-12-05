@@ -9,8 +9,8 @@ var listStyle = {
   li: {
     color: 'black',
     padding: '0.5em',
-    float: 'left',
   },
+
   i:{
     width:'70px',
     height: '60px',
@@ -31,19 +31,19 @@ const SortableList = SortableContainer(({items}) => {
 
     },
 
-    span: {
-      marginLeft: '3.2em',
-      color: 'white',
-      cursor:'pointer',
+    rFlow: {
+      color: 'rgb(230,230,230)',
+    },
+
+    im:{
+      width: '25px',
+      height: '25px',
 
 
     },
 
-
-
-    rFlow: {
-      color: 'black',
-      marginLeft: '2em'
+    dv:{
+      display: 'inline-block',
     }
 
   }
@@ -53,7 +53,9 @@ const SortableList = SortableContainer(({items}) => {
   return (
 
       <div >
-        <h4 style={styles.rFlow}><strong><u>RageFlow</u></strong></h4>
+        <div style = {styles.dv}>
+          <h4 style={styles.rFlow}><img src="ggg.png" style={styles.im}/><strong> RageFlow </strong><img src="ggg.png" style={styles.im}/></h4>
+        </div>
           <ol style={styles.ul}>
               {items.map((value, index) =>
                   <SortableItem key={`item-${index}`} index={index} value={value} />
@@ -72,6 +74,7 @@ class SortableComponent extends Component {
         this.state = {
           url: '',
           items: [],
+          size: 0,
         }
 
     }
@@ -82,56 +85,74 @@ class SortableComponent extends Component {
         });
     };
 
-    save(){
-      var newArray = this.state.items.slice()
-      newArray.push(this.props.url)
-      this.setState({items:newArray})
-
-    }
 
     update(){
       var l = _.size(this.state.items);
       if(l === 0){
         window.alert('Your RageFlow is empty! Press "Queue It" to add media to your flow.');
       }else{
-      var newArr = this.state.items.slice();
-      var val = newArr;
-      this.props.onUpdate(val);
+        var arr = this.state.items.slice();
+        var rageItems = arr;
+        this.props.onUpdate(false,rageItems);
       }
     }
+
+    /* This method is only called when THE PROPS CHANGE aka we can't queue the same item twice */
+    componentWillReceiveProps(nextProps) {
+      if(JSON.stringify(this.props.url) !== JSON.stringify(nextProps.url)) // Check if it's a new user, you can also use some unique, like the ID
+      {
+           this.itemUpdate(nextProps.url);
+      }
+
+    }
+
+
+    itemUpdate(obj){
+      this.setState({url:obj})
+      var sz = _.size(this.state.items);
+
+      if(sz === 0){
+        var ugh = [obj];
+        this.setState({items:ugh});
+      }else{
+        var newArray = this.state.items.slice();
+        newArray.push(obj);
+        this.setState({items:newArray});
+
+      }
+    }
+
+
 
     render() {
 
       var bb = {
-
+//#6199ce  rgb(48,144,0)  #FF6600
         menu: {
-          background: '#6199ce',
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          width: '10em',
+          background: 'rgb(185,0,0)',
+          position:'fixed',
+          top:0,
+          left:0,
+          width: '11em',
           height: '100%',
-          overflow: 'auto',
+          overflow:'auto',
+          borderRight: '4px solid black',
+
         },
         b:{
-          marginLeft:'2em',
+          marginLeft:'30%',
         },
-        q:{
-          marginRight: '8em',
-          position: 'relative',
-          bottom: '2.4em'
 
-        },
+
+
       }
         return (
-          <div>
-          <div style={bb.menu}>
-            <SortableList items={this.state.items} onSortEnd={this.onSortEnd} />
 
-            <Button style={bb.b} bsSize="small" bsStyle="danger" onClick={this.update.bind(this)}>RageFace</Button>
-          </div>
-          <Button style={bb.q} bsStyle='success' onClick={this.save.bind(this)}>Queue It</Button>
-          </div>
+            <div style={bb.menu}>
+              <SortableList items={this.state.items} onSortEnd={this.onSortEnd} />
+              <Button style={bb.b} bsSize="small" bsStyle="primary" onClick={this.update.bind(this)}>RageFace</Button>
+            </div>
+
         )
     }
 }

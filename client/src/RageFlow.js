@@ -28,7 +28,7 @@ class RageFlow extends Component {
 
 
   back(){
-    this.props.handleUpdate(true,this.state.flow)
+    this.props.handleBack(true);
 
   }
 
@@ -38,22 +38,24 @@ class RageFlow extends Component {
       image: {
         width: "50em",
         height: "30em",
-        marginTop: '1em',
         border: "3px solid black",
         float: 'center',
       },
+
+      dv:{
+        
+      },
+
       back:{
-        padding: "1em",
-        marginRight: '1em',
+        marginRight: '0.5em',
       },
       watch:{
-        padding: "1em",
-        marginLeft: '1em',
+        marginLeft: '0.5em',
       },
     }
 
     return (
-      <div>
+      <div style={st.dv}>
         <img src={this.props.flow[this.state.i]} alt="Your browser doesn't support img" style={st.image}/>
         <br/>
         <br/>
