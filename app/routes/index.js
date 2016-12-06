@@ -27,7 +27,7 @@ module.exports = () => {
 
       //[validateSender,(req, res, next) => {...}]
       '/getgifs': (req, res, next) => {
-        let pyScriptPath = "/Users/Dave/Documents/Uni Work/COMP 307/Rageface/app/scripts/test.py";
+        let pyScriptPath = "C:\Users\Simon\school\Comp307\Rageface\app\scripts\test.py";
 
         var process = spawn('python', [pyScriptPath]);
 
@@ -49,7 +49,7 @@ module.exports = () => {
               res.status(500).send(error);
             }
             else if (result) {
-              res.status(200).send(result);
+              res.status(200).send(JSON.stringify(result));
             }
             else {
               res.status(500).send("An unknown error has occured.");
@@ -79,7 +79,7 @@ module.exports = () => {
             res.status(500).send(err);
           }
           else if (results) {
-            res.status(200).send(results);
+            res.status(200).send(JSON.stringify(results));
           }
           else {
             res.status(500).send("An unknown error has occured.");

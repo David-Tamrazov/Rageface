@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Bootstrap Example</title>
+  <title>RageFace</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -29,17 +29,17 @@ body{
   <form>
     <div class="form-group">
       <label for="email">Email:</label>
-      <input type="email" class="form-control" id="email" placeholder="Enter email">
+      <input type="email" class="form-control" id="email" name="myName" placeholder="Enter email">
     </div>
     <div class="form-group">
       <label for="pwd">Password:</label>
-      <input type="password" class="form-control" id="pwd" placeholder="Enter password">
+      <input type="password" class="form-control" id="pwd" name="myPass" placeholder="Enter password">
     </div>
     <div class="form-group">
       <label for="pwd">Confirm password:</label>
       <input type="password" class="form-control" id="pwd" placeholder="Enter password">
     </div>
-    <button type="submit" class="btn btn-primary">Register</button>
+    <button onclick='storeAndSend(); return false;' value="submit">Register</button>
   </form>
 
 </div>
@@ -50,7 +50,7 @@ body{
     setInterval(frame, 750);
     setInterval(rFrame, 750);
     setInterval(nFrame, 750);
-  
+
 
     function frame() {
       if(document.getElementById("rock").value == "r"){
@@ -82,6 +82,33 @@ body{
         document.getElementById("surf").src = "surfer.png";
         document.getElementById("surf").value = "s"
       }
+
+    }
+    function storeAndSend(){
+
+
+            var data = "username="+ document.getElementById("email").value + "&password=" +document.getElementById("pwd").value;
+
+            var xhr = new XMLHttpRequest();
+            //xhr.withCredentials = true;
+
+            xhr.addEventListener("readystatechange", function () {
+              if (this.readyState === 4) {
+                console.log(this.responseText);
+                var responseObject = JSON.parse(xhr.responseText);
+                document.cookie="userID=" + responseObject["user"]["_id"];
+                document.cookie= "token=" + responseObject["token"];
+                console.log("This is the user id cookie:", document.cookie);
+              }
+            });
+
+            xhr.open("POST", "http://localhost:3001/signup");
+            //xhr.setRequestHeader("username", "user1");//document.getElementById("email").value);
+            //xhr.setRequestHeader("password", "pass");//document.getElementById("pwd").value);
+            xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded");
+            xhr.setRequestHeader("cache-control", "no-cache");
+
+            xhr.send(data);
 
     }
 </script>
