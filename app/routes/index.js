@@ -26,8 +26,7 @@ module.exports = () => {
 
       '/getgifs': (req, res, next) => {
 
-        console.log("Getting the script request.");
-        let pyScriptPath = "/Users/Dave/Documents/Uni Work/COMP 307/Rageface/app/scripts/test.py";
+        let pyScriptPath = "/Users/Dave/Documents/Uni Work/COMP 307/rageface_dave/app/scripts/test.py";
 
         var process = spawn('python', [pyScriptPath]);
 
@@ -47,7 +46,7 @@ module.exports = () => {
               res.status(500).send(error);
             }
             else if (result) {
-              res.status(200).send(result);
+              res.status(200).send(JSON.stringify(result));
             }
             else {
               res.status(500).send("An unknown error has occured.");
@@ -72,10 +71,13 @@ module.exports = () => {
         ], (err, results) => {
 
           if (err) {
-            throw err;
-            res.status(500).send(err);
+            res.status(500).send(err); 
+          }
+          else if (!results.user) {
+            res.status(422).send("A user with that username already exists!");
           }
           else if (results) {
+            console.log(results);
             res.status(200).send(results);
           }
           else {
