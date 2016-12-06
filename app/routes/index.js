@@ -25,6 +25,8 @@ module.exports = () => {
       },
 
       '/getgifs': (req, res, next) => {
+
+        console.log("Getting the script request.");
         let pyScriptPath = "/Users/Dave/Documents/Uni Work/COMP 307/Rageface/app/scripts/test.py";
 
         var process = spawn('python', [pyScriptPath]);
