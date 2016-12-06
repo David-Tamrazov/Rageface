@@ -38,17 +38,24 @@ passport.use(new Strategy((username, password, done) => {
 
 let generateToken = (user, cb) => {
 
-  let token = jwt.sign({
-    id: user._id,
-  }, config.secret, {
-    //seconds * minutes
-    expiresIn: 60 * 30
-  });
-  return cb(null, token);
+  if (user) {
+    let token = jwt.sign({
+      id: user._id,
+      username: user.username
+    }, config.secret, {
+      //seconds * minutes
+      expiresIn: 60 * 30
+    });
+    return cb(null, token);
+  }
+
+  else {
+    return cb(null, null);
+  }
 }
 
 let generateAccessToken = (user, cb) => {
-  return generateToken(user._id, (error, token) => {
+  return generateToken(user, (error, token) => {
     return cb(null, { user: user, token: token });
   });
 }

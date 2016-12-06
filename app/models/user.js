@@ -34,20 +34,34 @@ function serializeUser(cb) {
 
 let createUser = (username, pw, cb) => {
 
-  let user = new User({
-    username: username,
-    password: pw,
-    flows: [],
-    dateJoined: new Date()
-  });
-
-  user.save(error => {
-    if (error) {
-      throw error;
-      return cb(error, null);
+  //see if a user with that username exists already
+  findByUsername(username, (err, user) => {
+    if (err) {
+      return cb (err, null);
     }
+
+    //found a user already with that username- bail
+    else if (user) {
+      return cb(null, null);
+    }
+
     else {
-      return cb(null, user);
+      let user = new User({
+        username: username,
+        password: pw,
+        flows: [],
+        dateJoined: new Date()
+      });
+
+      user.save(error => {
+        if (error) {
+          return cb(error, null);
+        }
+        else {
+          return cb(null, user);
+        }
+      });
+
     }
   });
 }
