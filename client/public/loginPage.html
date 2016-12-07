@@ -43,7 +43,7 @@
       <div class="checkbox">
         <label><input type="checkbox"> Remember me</label>
       </div>
-      <button onclick='storeAndSend(); return false;' value="submit">Login</button>
+      <button onclick='storeAndSend(); return false;' class='btn btn-primary' value="submit">Login</button>
     </form>
   </div>
 
@@ -97,20 +97,35 @@
           xhr.addEventListener("readystatechange", function () {
             if (this.readyState === 4) {
 
-              var responseObject = JSON.parse(xhr.responseText);
-              if (responseObject["user"] && responseObject["access_token"]) {
-                  localStorage.setItem("token", responseObject["access_token"]);
-                  localStorage.setItem("userFlow", responseObject["user"]["flow"]);
-                  localStorage.setItem('username', responseObject["user"]["username"]);
+              switch(this.status) {
+                case 200:
+                  var responseObject = JSON.parse(xhr.responseText);
 
-                  window.location= "http://localhost:3000";
+                  //if there was a user and a token within the object, the sign in has returned succesfully
+                  if (responseObject["user"] && responseObject["access_token"]) {
+                    console.log(responseObject["user"]);
+                    localStorage.setItem("token", responseObject["access_token"]);
+                    localStorage.setItem("userFlow", responseObject["user"]["flow"]);
+                    localStorage.setItem('username', responseObject["user"]["username"]);
+                    window.location= "http://localhost:3000";
+                  }
+
+                  //otherwise we dont know what happened
+                  else {
+                    alert("An error has occurred with your sign-in!");
+                  }
+                  break;
+
+                case 401:
+                  alert("Username or password is incorrect.");
+                  break;
+                  
+                default:
+                  alert("An unknown error has occured.");
+                  break;
               }
-
-              else {
-                alert("An error has occurred with your sign-in!");
-              }
-
             }
+
           });
 
           xhr.open("POST", "http://localhost:3001/signin");

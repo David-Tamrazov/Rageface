@@ -45,7 +45,7 @@ body{
       <input type="password" class="form-control" id="pwd" placeholder="Enter password">
     </div>
     <div>
-      <button onclick='storeAndSend(); return false;' value="submit">Register</button>
+      <button onclick='storeAndSend(); return false;' class='btn btn-primary' value="submit">Register</button>
     </div>
   </form>
 
@@ -99,15 +99,12 @@ body{
             //xhr.withCredentials = true;
 
             xhr.addEventListener("readystatechange", function () {
-              if (this.readyState === 4) {
+              if (this.readyState === 4 && this.status == 200) {
 
                 var responseObject = JSON.parse(xhr.responseText);
                 if (responseObject["user"] && responseObject["access_token"]) {
                     localStorage.setItem("token", responseObject["access_token"]);
-                    localStorage.setItem("userFlow", responseObject["user"]["flow"]);
                     localStorage.setItem('username', responseObject["user"]["username"]);
-
-
                     window.location= "http://localhost:3000";
                 }
 
@@ -115,6 +112,13 @@ body{
                   alert("An error has occurred with your sign-up!");
                 }
 
+              }
+
+              else if (this.status == 422) {
+                alert("Username is already taken!");
+              }
+              else {
+                alert("An error has occured!");
               }
             });
 

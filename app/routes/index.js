@@ -26,7 +26,7 @@ module.exports = () => {
 
       '/getgifs': (req, res, next) => {
 
-        let pyScriptPath = "C:\Users\Simon\school\Comp307\Rageface\app\scripts\test.py";
+        let pyScriptPath = "/Users/Dave/Documents/Uni Work/COMP 307/Rageface/app/scripts/test.py";
 
         var process = spawn('python', [pyScriptPath]);
 
@@ -94,7 +94,7 @@ module.exports = () => {
               res.status(500).send(error);
             }
             else if (user) {
-              res.status(200).send(user);
+              res.status(200).json({user: user});
             }
             else {
               res.status(500).send("An unknown error has occurred.");

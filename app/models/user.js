@@ -66,7 +66,7 @@ let createUser = (username, pw, cb) => {
   });
 }
 
-let saveUserFlow=(username, flow, cb) => {
+let saveUserFlow =(username, flow, cb) => {
 
   //find the user in the database
   findByUsername(username, (err, user) => {

@@ -20,7 +20,7 @@ passport.use(new Strategy((username, password, done) => {
           //send back a user object without the password for security's sake
           var userObject = {
             _id: user._id,
-            flows: user.flows,
+            flows: user.flow,
             username: user.username,
             dateJoined: user.dateJoined
           }
