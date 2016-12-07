@@ -49,7 +49,7 @@ let createUser = (username, pw, cb) => {
       let user = new User({
         username: username,
         password: pw,
-        flows: [],
+        flow: [],
         dateJoined: new Date()
       });
 
