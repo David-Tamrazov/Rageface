@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import {Button} from 'react-bootstrap';
 import _ from 'lodash';
-
-
-
-
+import axios from 'axios';
 
 class RageFlow extends Component {
   constructor(props){
@@ -33,6 +30,44 @@ class RageFlow extends Component {
   }
 
 
+  save(){
+    var saveflow = this.props.flow.slice();
+    var token = 'Bearer ' + localStorage.getItem("token");
+    axios.defaults.headers.common['Authorization'] = token;
+    axios.defaults.headers.post['Content-Type']= 'application/json';
+    // const giphURL = 'http://localhost:3001/saveflow'
+    // axios.post(giphURL,{
+    //      'flow'
+    //    }:{'bullshit'}, headers)
+    //    .then(function (response) {
+    //      console.log(response);
+    //    })
+    //    .catch(function (error) {
+    //      console.log(error);
+    //    });
+    axios.post('http://localhost:3001/saveflow', {
+      flow : saveflow
+    })
+    .then(function (response) {
+      console.log(response);
+      alert("your flow's been saved");
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+        //
+        //  fetch('https://localhost:3001/saveflow', {
+        //      method: 'POST',
+        //      headers: {
+        //        'authorization': token,
+        //        'content-type': 'application/json'
+        //      },
+        //      body: JSON.stringify({
+        //        flow: saveflow
+        //      })
+        //    })
+  }
+
   render() {
     var st = {
       image: {
@@ -43,7 +78,7 @@ class RageFlow extends Component {
       },
 
       dv:{
-        
+
       },
 
       back:{
@@ -61,6 +96,7 @@ class RageFlow extends Component {
         <br/>
         <Button bsStyle='success' bsSize="small" style={st.back} onClick={this.back.bind(this)}>Back to RageFace</Button>
         <Button bsStyle='primary' bsSize="small" style={st.watch} onClick={this.increment.bind(this)}>Watch RageFlow</Button>
+        <Button bsStyle='primary' bsSize="small" style={st.watch} onClick={this.save.bind(this)}>Save to your account</Button>
       </div>
     );
   }
