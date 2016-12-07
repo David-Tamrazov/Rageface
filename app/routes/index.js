@@ -77,12 +77,8 @@ module.exports = () => {
             res.status(422).send("A user with that username already exists!");
           }
           else if (results) {
-<<<<<<< HEAD
-            res.status(200).send(JSON.stringify(results));
-=======
             console.log(results);
             res.status(200).send(results);
->>>>>>> ba41c54f6a62a292f43500fd7f5121d0f5651484
           }
           else {
             res.status(500).send("An unknown error has occured.");

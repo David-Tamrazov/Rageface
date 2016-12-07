@@ -16,13 +16,13 @@ class GifSearch extends Component {
     }
     //http://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC
 //http://api.giphy.com/v1/gifs/trending?api_key=dc6zaTOxFJmzC&limit=5
-    /*const giphURL = 'http://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC'
+    const giphURL = 'http://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC'
     axios.get(giphURL)
       .then(resp => {
           this.setState({
             results: resp.data.data.image_url
           });
-        });*/
+        });
   }
 
   search(){
@@ -50,16 +50,16 @@ class GifSearch extends Component {
     var coin = _.random(0,1)
 //http://api.giphy.com/v1/gifs/trending?api_key=dc6zaTOxFJmzC&limit=1
 //'http://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC'+str+temp
-  /*  const giphURL = 'http://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC'+str+temp
+    const giphURL = 'http://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC'+str+temp
       axios.get(giphURL)
         .then(resp => {
             this.setState({
               results: resp.data.data.image_url
             });
-          });*/
+          });
 
-    const giphURL = 'http://localhost:3001/getgifs'
-      axios.get(giphURL)
+    const giphURL1 = 'http://localhost:3001/getgifs'
+      axios.get(giphURL1)
         .then(resp => {
             this.setState({
               results: resp.data.data.image_url

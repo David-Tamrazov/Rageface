@@ -39,7 +39,9 @@ body{
       <label for="pwd">Confirm password:</label>
       <input type="password" class="form-control" id="pwd" placeholder="Enter password">
     </div>
-    <button onclick='storeAndSend(); return false;' value="submit">Register</button>
+    <div>
+      <button onclick='storeAndSend(); back(); return false;' value="submit">Register</button>
+    </div>
   </form>
 
 </div>
@@ -103,13 +105,14 @@ body{
             });
 
             xhr.open("POST", "http://localhost:3001/signup");
-            //xhr.setRequestHeader("username", "user1");//document.getElementById("email").value);
-            //xhr.setRequestHeader("password", "pass");//document.getElementById("pwd").value);
             xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded");
             xhr.setRequestHeader("cache-control", "no-cache");
 
             xhr.send(data);
 
+    }
+    function back(){
+        window.location= "http://localhost:3000";
     }
 </script>
 </html>
