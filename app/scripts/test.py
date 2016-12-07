@@ -7,7 +7,9 @@ from random import randint
 import time
 #import database as db    # see below
 
-subreddits =["shittyadviceanimals","birdswitharms","me_irl","gifs"]
+
+subreddits =["birdswitharms","pics","foodporn"]
+
 subreddit = subreddits[randint(0,len(subreddits)-1)]
 
 url_list = []
@@ -25,9 +27,11 @@ def main():
                         url = e["data"]["url"]
                         if("preview" in e["data"]):
                                 preview = e["data"]["preview"]["images"][0]["source"]["url"]
-                                if(".jpg" in url or ".png" in url):
+                                if(not "gif" in url):
+                                    if(".jpg" in url or ".png" in url):
                                         url_list.append(url)
-                                url_list.append(preview)
+
+                                    url_list.append(preview)
     print(json.dumps(url_list[randint(0,len(url_list)-1)]))
     sys.stdout.flush()
 

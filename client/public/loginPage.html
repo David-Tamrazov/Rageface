@@ -33,8 +33,8 @@
     <br/>
     <form action="localhost:3001/signin" method="POST">
       <div class="form-group">
-        <label for="email">Email:</label>
-        <input type="email" class="form-control" id="email" name="username" placeholder="Enter email">
+        <label for="username">Username:</label>
+        <input type="text" class="form-control" id="username" name="username" placeholder="Enter username">
       </div>
       <div class="form-group">
         <label for="pwd">Password:</label>
@@ -89,20 +89,27 @@
 
   }
   function storeAndSend(){
-
-
-          var data = "username="+ document.getElementById("email").value + "&password=" +document.getElementById("pwd").value;
+          var data = "username="+ document.getElementById("username").value + "&password=" +document.getElementById("pwd").value;
 
           var xhr = new XMLHttpRequest();
           //xhr.withCredentials = true;
 
           xhr.addEventListener("readystatechange", function () {
             if (this.readyState === 4) {
-              console.log(this.responseText);
+
               var responseObject = JSON.parse(xhr.responseText);
-              document.cookie="userID=" + responseObject["user"]["_id"];
-              document.cookie= "token=" + responseObject["token"];
-              console.log("This is the user id cookie:", document.cookie);
+              if (responseObject["user"] && responseObject["access_token"]) {
+                  localStorage.setItem("token", responseObject["access_token"]);
+                  localStorage.setItem("userFlow", responseObject["user"]["flow"]);
+                  localStorage.setItem('username', responseObject["user"]["username"]);
+
+                  window.location= "http://localhost:3000";
+              }
+
+              else {
+                alert("An error has occurred with your sign-in!");
+              }
+
             }
           });
 

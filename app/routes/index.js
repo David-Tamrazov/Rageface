@@ -41,12 +41,12 @@ module.exports = () => {
 
           //serialize
           var user = req.user;
-          Auth.generateAccessToken(user, (error, result) => {
+          Auth.generateAccessToken(user, (error, results) => {
             if (error) {
               res.status(500).send(error);
             }
-            else if (result) {
-              res.status(200).send(JSON.stringify(result));
+            else if (results) {
+              res.status(200).json({user: results.user, access_token: results.token});
             }
             else {
               res.status(500).send("An unknown error has occured.");
@@ -77,8 +77,7 @@ module.exports = () => {
             res.status(422).send("A user with that username already exists!");
           }
           else if (results) {
-            console.log(results);
-            res.status(200).send(results);
+            res.status(200).json({user: results.user, access_token: results.token});
           }
           else {
             res.status(500).send("An unknown error has occured.");
@@ -87,7 +86,20 @@ module.exports = () => {
       },
 
       '/saveflow': [Authenticate, (req, res, next) => {
+          let username = req.user.username;
+          let flow = req.body.flow;
 
+          User.saveUserFlow(username, flow, (error, user) => {
+            if (error) {
+              res.status(500).send(error);
+            }
+            else if (user) {
+              res.status(200).send(user);
+            }
+            else {
+              res.status(500).send("An unknown error has occurred.");
+            }
+          });
       }]
     },
     'update': {

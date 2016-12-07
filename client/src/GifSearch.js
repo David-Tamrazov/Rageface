@@ -48,8 +48,10 @@ class GifSearch extends Component {
 
     /*determines if we present a giph or reddit image */
     var coin = _.random(0,1)
+
 //http://api.giphy.com/v1/gifs/trending?api_key=dc6zaTOxFJmzC&limit=1
 //'http://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC'+str+temp
+  if(coin === 0){
     const giphURL = 'http://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC'+str+temp
       axios.get(giphURL)
         .then(resp => {
@@ -58,13 +60,18 @@ class GifSearch extends Component {
             });
           });
 
-    const giphURL1 = 'http://localhost:3001/getgifs'
-      axios.get(giphURL1)
-        .then(resp => {
-            this.setState({
-              results: resp.data.data.image_url
+
+    }else{
+
+      const giphURL = 'http://localhost:3001/getgifs'
+        axios.get(giphURL)
+          .then(resp => {
+              this.setState({
+                results: resp.data
+              });
             });
-          });
+      }
+
   }
 
 

@@ -8,7 +8,7 @@ const rageface_user = Mongoose.Schema({
     unique: true
   },
   password: String,
-  flows: Array,
+  flow: Array,
   dateJoined: Date
 });
 
@@ -66,8 +66,35 @@ let createUser = (username, pw, cb) => {
   });
 }
 
+let saveUserFlow=(username, flow, cb) => {
+
+  //find the user in the database
+  findByUsername(username, (err, user) => {
+
+    //if there's an error with it, return the error
+    if (err) {
+      return cb(err, null);
+    }
+
+    //else we've found the user; update their flow and return the user if succesfull
+    else if (user) {
+      user.flow = flow;
+
+      user.save(err => {
+        if (err) {
+          return cb(err, null);
+        }
+        else {
+          return cb(null, user);
+        }
+      });
+    }
+  });
+}
+
 module.exports = {
   User,
   findByUsername,
-  createUser
+  createUser,
+  saveUserFlow
 }
