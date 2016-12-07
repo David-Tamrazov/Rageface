@@ -49,7 +49,7 @@ let createUser = (username, pw, cb) => {
       let user = new User({
         username: username,
         password: pw,
-        flows: [],
+        flow: [],
         dateJoined: new Date()
       });
 
@@ -66,7 +66,7 @@ let createUser = (username, pw, cb) => {
   });
 }
 
-let saveUserFlow(username, flow, cb) => {
+let saveUserFlow = (username, flow, cb) => {
 
   //find the user in the database
   findByUsername(username, (err, user) => {
@@ -79,7 +79,7 @@ let saveUserFlow(username, flow, cb) => {
     //else we've found the user; update their flow and return the user if succesfull
     else if (user) {
       user.flow = flow;
-      
+
       user.save(err => {
         if (err) {
           return cb(err, null);
@@ -95,5 +95,6 @@ let saveUserFlow(username, flow, cb) => {
 module.exports = {
   User,
   findByUsername,
-  createUser
+  createUser,
+  saveUserFlow
 }
