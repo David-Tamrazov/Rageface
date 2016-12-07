@@ -35,16 +35,6 @@ class RageFlow extends Component {
     var token = 'Bearer ' + localStorage.getItem("token");
     axios.defaults.headers.common['Authorization'] = token;
     axios.defaults.headers.post['Content-Type']= 'application/json';
-    // const giphURL = 'http://localhost:3001/saveflow'
-    // axios.post(giphURL,{
-    //      'flow'
-    //    }:{'bullshit'}, headers)
-    //    .then(function (response) {
-    //      console.log(response);
-    //    })
-    //    .catch(function (error) {
-    //      console.log(error);
-    //    });
     axios.post('http://localhost:3001/saveflow', {
       flow : saveflow
     })
@@ -55,17 +45,6 @@ class RageFlow extends Component {
     .catch(function (error) {
       console.log(error);
     });
-        //
-        //  fetch('https://localhost:3001/saveflow', {
-        //      method: 'POST',
-        //      headers: {
-        //        'authorization': token,
-        //        'content-type': 'application/json'
-        //      },
-        //      body: JSON.stringify({
-        //        flow: saveflow
-        //      })
-        //    })
   }
 
   render() {
