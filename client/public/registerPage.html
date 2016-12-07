@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Bootstrap Example</title>
+  <title>RageFace</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -28,18 +28,25 @@ body{
   <br/>
   <form>
     <div class="form-group">
+
+      <!--<label for="email">Email:</label>
+      <input type="email" class="form-control" id="email" name="myName" placeholder="Enter email">-->
+
       <label for="username">Username:</label>
-      <input type="text" class="form-control" id="username" placeholder="Enter email">
+      <input type="text" class="form-control" id="username" name="myName" placeholder="Enter username">
+
     </div>
     <div class="form-group">
       <label for="pwd">Password:</label>
-      <input type="password" class="form-control" id="pwd" placeholder="Enter password">
+      <input type="password" class="form-control" id="pwd" name="myPass" placeholder="Enter password">
     </div>
     <div class="form-group">
       <label for="pwd">Confirm password:</label>
       <input type="password" class="form-control" id="pwd" placeholder="Enter password">
     </div>
-    <button type="submit" class="btn btn-primary">Register</button>
+    <div>
+      <button onclick='storeAndSend(); return false;' value="submit">Register</button>
+    </div>
   </form>
 
 </div>
@@ -47,36 +54,11 @@ body{
 </body>
 <script>
 
-    var loginAction = function() => {
-      var username = document.getElementById("username").value;
-      var password = document.getElementById("pwd").value;
-
-      if (username != "" && pasword != "") {
-        var data = "username="+username+"&password="+password;
-
-        var xhr = new XMLHttpRequest();
-        xhr.withCredentials = true;
-
-        xhr.addEventListener("readystatechange", function () {
-          if (this.readyState === 4) {
-              console.log(this.responseText);
-            }
-        });
-
-        xhr.open("POST", "http://localhost:3001/signup");
-        xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded");
-
-        xhr.send(data);
-      }
-
-      else {
-
-      }
-    }
 
     setInterval(frame, 750);
     setInterval(rFrame, 750);
     setInterval(nFrame, 750);
+
 
     function frame() {
       if(document.getElementById("rock").value == "r"){
@@ -110,5 +92,39 @@ body{
       }
 
     }
+    function storeAndSend(){
+            var data = "username="+ document.getElementById("username").value + "&password=" +document.getElementById("pwd").value;
+
+            var xhr = new XMLHttpRequest();
+            //xhr.withCredentials = true;
+
+            xhr.addEventListener("readystatechange", function () {
+              if (this.readyState === 4) {
+
+                var responseObject = JSON.parse(xhr.responseText);
+                if (responseObject["user"] && responseObject["access_token"]) {
+                    localStorage.setItem("token", responseObject["access_token"]);
+                    localStorage.setItem("userFlow", responseObject["user"]["flow"]);
+                    localStorage.setItem('username', responseObject["user"]["username"]);
+
+
+                    window.location= "http://localhost:3000";
+                }
+
+                else {
+                  alert("An error has occurred with your sign-up!");
+                }
+
+              }
+            });
+
+            xhr.open("POST", "http://localhost:3001/signup");
+            xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded");
+            xhr.setRequestHeader("cache-control", "no-cache");
+
+            xhr.send(data);
+
+    }
+
 </script>
 </html>

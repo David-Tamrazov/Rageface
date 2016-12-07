@@ -60,6 +60,7 @@ class GifSearch extends Component {
             });
           });
 
+
     }else{
 
       const giphURL = 'http://localhost:3001/getgifs'
@@ -70,6 +71,7 @@ class GifSearch extends Component {
               });
             });
       }
+
   }
 
 

@@ -4,9 +4,12 @@ import requests
 import sys
 import json
 from random import randint
+import time
 #import database as db    # see below
 
+
 subreddits =["birdswitharms","pics","foodporn"]
+
 subreddit = subreddits[randint(0,len(subreddits)-1)]
 
 url_list = []
@@ -15,6 +18,7 @@ def main():
 
     while(not url_list):
         r = requests.get('http://www.reddit.com/r/{sr}/.json?limit=20'.format(sr=subreddit))
+
         d = r.json()
         if("data" in d):
             children = d["data"]["children"]
@@ -26,6 +30,7 @@ def main():
                                 if(not "gif" in url):
                                     if(".jpg" in url or ".png" in url):
                                         url_list.append(url)
+
                                     url_list.append(preview)
     print(json.dumps(url_list[randint(0,len(url_list)-1)]))
     sys.stdout.flush()
