@@ -105,6 +105,7 @@
                   if (responseObject["user"] && responseObject["access_token"]) {
                     console.log(responseObject["user"]);
                     localStorage.setItem("token", responseObject["access_token"]);
+                    console.log(responseObject["user"]["flow"]);
                     localStorage.setItem("userFlow", responseObject["user"]["flow"]);
                     localStorage.setItem('username', responseObject["user"]["username"]);
                     window.location= "http://localhost:3000";
@@ -119,7 +120,7 @@
                 case 401:
                   alert("Username or password is incorrect.");
                   break;
-                  
+
                 default:
                   alert("An unknown error has occured.");
                   break;
