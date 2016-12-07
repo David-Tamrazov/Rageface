@@ -28,8 +28,8 @@ body{
   <br/>
   <form>
     <div class="form-group">
-      <label for="email">Email:</label>
-      <input type="email" class="form-control" id="email" placeholder="Enter email">
+      <label for="username">Username:</label>
+      <input type="text" class="form-control" id="username" placeholder="Enter email">
     </div>
     <div class="form-group">
       <label for="pwd">Password:</label>
@@ -47,10 +47,36 @@ body{
 </body>
 <script>
 
+    var loginAction = function() => {
+      var username = document.getElementById("username").value;
+      var password = document.getElementById("pwd").value;
+
+      if (username != "" && pasword != "") {
+        var data = "username="+username+"&password="+password;
+
+        var xhr = new XMLHttpRequest();
+        xhr.withCredentials = true;
+
+        xhr.addEventListener("readystatechange", function () {
+          if (this.readyState === 4) {
+              console.log(this.responseText);
+            }
+        });
+
+        xhr.open("POST", "http://localhost:3001/signup");
+        xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded");
+
+        xhr.send(data);
+      }
+
+      else {
+
+      }
+    }
+
     setInterval(frame, 750);
     setInterval(rFrame, 750);
     setInterval(nFrame, 750);
-  
 
     function frame() {
       if(document.getElementById("rock").value == "r"){

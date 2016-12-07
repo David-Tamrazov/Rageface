@@ -71,7 +71,7 @@ module.exports = () => {
         ], (err, results) => {
 
           if (err) {
-            res.status(500).send(err); 
+            res.status(500).send(err);
           }
           else if (!results.user) {
             res.status(422).send("A user with that username already exists!");
@@ -87,7 +87,20 @@ module.exports = () => {
       },
 
       '/saveflow': [Authenticate, (req, res, next) => {
+          let username = req.user.username;
+          let flow = req.body.flow;
 
+          User.saveUserFlow(username, flow, (error, user) => {
+            if (error) {
+              res.status(500).send(error);
+            }
+            else if (user) {
+              res.status(200).send(user);
+            }
+            else {
+              res.status(500).send("An unknown error has occurred.");
+            }
+          });
       }]
     },
     'update': {
