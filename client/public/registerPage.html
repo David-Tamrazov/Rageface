@@ -101,25 +101,28 @@ body{
             xhr.addEventListener("readystatechange", function () {
               if (this.readyState === 4 && this.status == 200) {
 
-                var responseObject = JSON.parse(xhr.responseText);
-                if (responseObject["user"] && responseObject["access_token"]) {
-                    localStorage.setItem("token", responseObject["access_token"]);
-                    localStorage.setItem('username', responseObject["user"]["username"]);
-                    window.location= "http://localhost:3000";
+                switch (this.status) {
+                  case 200:
+                    var responseObject = JSON.parse(xhr.responseText);
+                    if (responseObject["user"] && responseObject["access_token"]) {
+                        localStorage.setItem("token", responseObject["access_token"]);
+                        localStorage.setItem('username', responseObject["user"]["username"]);
+                        window.location= "http://localhost:3000";
+                      }
+
+                    else {
+                      alert("An error has occurred with your sign-up!");
+                    }
+                    break;
+
+                  case 422:
+                    alert("Username is already taken!");
+                    break;
+
+                  default:
+                    alert("An unknown error has occured.");
+                    break;
                 }
-
-                else {
-                  alert("An error has occurred with your sign-up!");
-                }
-
-              }
-
-              else if (this.status == 422) {
-                alert("Username is already taken!");
-              }
-              else {
-                alert("An error has occured!");
-              }
             });
 
             xhr.open("POST", "http://localhost:3001/signup");

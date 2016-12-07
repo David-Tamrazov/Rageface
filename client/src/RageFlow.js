@@ -3,7 +3,6 @@ import {Button} from 'react-bootstrap';
 import _ from 'lodash';
 import axios from 'axios';
 
-
 class RageFlow extends Component {
   constructor(props){
     super(props)
@@ -32,7 +31,39 @@ class RageFlow extends Component {
 
   save() {
 
-    //set the parameteres of the axios request 
+    //set the parameteres of the axios request
+    var saveflow = this.props.flow.slice();
+    var token = 'Bearer ' + localStorage.getItem("token");
+    axios.defaults.headers.common['Authorization'] = token;
+    axios.defaults.headers.post['Content-Type']= 'application/json';
+
+    axios.post('http://localhost:3001/saveflow', {
+      flow : saveflow
+    })
+    .then(function (response) {
+      if (response.status == 200) {
+        alert("Your flow has been saved!");
+      }
+      else {
+        alert("An unknown error has occured.");
+      }
+    })
+    .catch(function (error) {
+
+      //if its a server side error, it will have a response object attached to it.
+      if (error.response) {
+        alert("A server-side error has occured.");
+      }
+
+      //theres no response object,so there was a front-end error setting up the request.
+      else {
+        alert("A request error has occurred.");
+      }
+    });
+  }
+
+  save(){
+    //set the parameteres of the axios request
     var saveflow = this.props.flow.slice();
     var token = 'Bearer ' + localStorage.getItem("token");
     axios.defaults.headers.common['Authorization'] = token;

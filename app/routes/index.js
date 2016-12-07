@@ -88,7 +88,7 @@ module.exports = () => {
       '/saveflow': [Authenticate, (req, res, next) => {
           let username = req.user.username;
           let flow = req.body.flow;
-
+          console.log(username +" " +flow);
           User.saveUserFlow(username, flow, (error, user) => {
             if (error) {
               res.status(500).send(error);
