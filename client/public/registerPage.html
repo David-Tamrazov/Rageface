@@ -54,7 +54,6 @@ body{
 </body>
 <script>
 
-
     setInterval(frame, 750);
     setInterval(rFrame, 750);
     setInterval(nFrame, 750);
@@ -123,13 +122,17 @@ body{
                     alert("An unknown error has occured.");
                     break;
                 }
+              }
             });
+
+
 
             xhr.open("POST", "http://localhost:3001/signup");
             xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded");
             xhr.setRequestHeader("cache-control", "no-cache");
 
             xhr.send(data);
+
 
     }
 
