@@ -1,4 +1,4 @@
-README: Simon Huang, Benji Taubenblatt, David Tamrazov
+
 
 Introducing RageFace: Your personal media aggregate site. RageFace aggregates random media from both www.giphy.com and www.reddit.com and allows the user to personalize their own playlists-like "RageFlow". RageFlow is fully reorder-able, allowing easy user customization. Click RageFace to watch your RageFlow! Click Save to account to save your flow to your user account. Enjoy!
 
