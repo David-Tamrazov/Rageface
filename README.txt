@@ -1,6 +1,8 @@
 
 
-Introducing RageFace: Your personal media aggregate site. RageFace aggregates random media from both www.giphy.com and www.reddit.com and allows the user to personalize their own playlists-like "RageFlow". RageFlow is fully reorder-able, allowing easy user customization. Click RageFace to watch your RageFlow! Click Save to account to save your flow to your user account. Enjoy!
+Introducing RageFace: Your personal media aggregate site. RageFace aggregates random media from both www.giphy.com and www.reddit.com and allows the user to personalize their own playlists-like "RageFlow". RageFlow is fully reorder-able, allowing easy user customization. Click RageFace to watch your RageFlow! Click Save to account to save your flow to your user account. Enjoy! 
+
+NOTE: RageFace is a work in progress but will be coming soon!
 
 Download: https://github.com/David-Tamrazov/Rageface
 
