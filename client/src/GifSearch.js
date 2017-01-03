@@ -28,17 +28,16 @@ class GifSearch extends Component {
   search(){
     var tags = ["Kermit", "Zombies", "Dank+Memes",
     "Harambe", "Coyotes", "Beer" , "Vomit", "Unicycles" , "Martial+Arts", "Falling", "fat+people",
-     "Star+Wars", "The+Simpsons", "Pokemon", "Trump", "LSD", "Cars", "Poop", "Dank+Memes", "Dank+Memes", "Kermit", "Joe+Biden", "Poutine", "Spears",
+     "Star+Wars", "The+Simpsons", "Pokemon", "Trump", "Cars", "Poop", "Dank+Memes", "Dank+Memes", "Kermit", "Joe+Biden", "Poutine", "Spears",
      "Shoes", "LOL", "Kittens", "Puppy", "Spilled+drinks", "Geese", "Harambe", "Lightsabers", "Crashes", "Twerk",
       "Rainbows", "Memes", "Memes", "Guitars", "Kanye+West",
    "Tackles", "Football", "Jukes", "Soccer", "Michael+Jordan", "Kittens", "Al+Capone","The+Godfather", "Beards"
-, "Bears", "Peanut+Butter", "Explosions", "Bacon", "The+Office","Wet+Hot+American+Summer",
-"Weed", "Rainbows", "Kittens", "Joints", "Girls", "The+Simpsons",
+, "Bears", "Peanut+Butter", "Explosions", "Bacon", "The+Office","Wet+Hot+American+Summer", "Rainbows", "Kittens", "The+Simpsons",
 "Joe+Biden", "Obama", "Obama+Biden", "Tacos", "Cartoons", "Family+Guy", "Archer",
- "Archer","Always+Sunny+In+Philidelphia", "Beer", "Ninjas", "Kermit", "Obama",
-"Bernie+Sanders", "Snoopy", "Bombs", "Fire", "Paper+Towels", "Construction",
-"Women", "Bathing", "Hot+Tubs", "Archery", "Hammers", "Guns", "Ryan+Lochte", "Ryan+Lochte"
-, "Ryan+Lochte", "tricycle", "water+slides", "Harambe", "ham", "helicopters", "ham"]
+ "Archer","Always+Sunny+In+Philidelphia", "Beer", "Ninjas", "Kermit",
+"Bernie+Sanders", "Snoopy", "Fire", "Paper+Towels", "Construction", "Hot+Tubs", "Archery", "Hammers",
+ "Guns", "Ryan+Lochte", "Ryan+Lochte"
+, "Ryan+Lochte", "tricycle", "water+slides", "ham", "helicopters", "ham"]
 
     var str = '&tag=';
     var len = _.size(tags)-1;
@@ -64,6 +63,7 @@ class GifSearch extends Component {
     }else{
 
       const giphURL = 'http://localhost:3001/getgifs'
+
         axios.get(giphURL)
           .then(resp => {
               this.setState({
